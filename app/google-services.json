@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "526722648362",
+    "firebase_url": "https://garbage-collector-233107.firebaseio.com",
+    "project_id": "garbage-collector-233107",
+    "storage_bucket": "garbage-collector-233107.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526722648362:android:bc7f0f7c17d16c22",
+        "android_client_info": {
+          "package_name": "nsbm.plymouth.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526722648362-ljvk73vktub9b0igt6326pnecnreps69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTkFJ8w2Y110BD9DLjdKp76VJCPVmfz60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
