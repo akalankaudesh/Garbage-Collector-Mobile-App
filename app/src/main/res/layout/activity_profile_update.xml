@@ -4,28 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    tools:context=".LoginActivity">
+    tools:context=".Profile_update">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="181dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="115dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="115dp"
-        android:layout_marginBottom="50dp"
+        android:id="@+id/imguserupdated"
+        android:layout_width="116dp"
+        android:layout_height="111dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="matrix"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/txtemailaddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/loginpageicon" />
+        app:layout_constraintVertical_bias="0.144"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <AutoCompleteTextView
-        android:id="@+id/txtemailaddress"
+        android:id="@+id/txtupdateusername"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,14 +32,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/reg_edit_text_style"
-        android:hint="Email"
+        android:hint="Enter New User Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.398" />
+
 
     <EditText
-        android:id="@+id/txtpword"
+        android:id="@+id/txtoldpword"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -49,62 +50,81 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/reg_edit_text_style"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Enter Old Password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.592" />
+        app:layout_constraintVertical_bias="0.482" />
+
+    <EditText
+        android:id="@+id/txtnewpword"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/reg_edit_text_style"
+        android:ems="10"
+        android:hint="Enter new password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.571" />
 
     <Button
-        android:id="@+id/btnlogin"
+        android:id="@+id/btnupdateuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="164dp"
         android:background="@drawable/reg_button_style"
-        android:text="Login"
+        android:text="Update"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btncancelupdate"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtpword"
+        app:layout_constraintTop_toBottomOf="@+id/txtnewpword"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btnsignup"
+        android:id="@+id/btncancelupdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginBottom="164dp"
         android:background="@drawable/reg_button_style"
-        android:text="Signup"
+        android:text="Cancel"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toEndOf="@+id/btnlogin"
-        app:layout_constraintTop_toBottomOf="@+id/txtpword"
+        app:layout_constraintStart_toEndOf="@+id/btnupdateuser"
+        app:layout_constraintTop_toBottomOf="@+id/txtnewpword"
         app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
-        android:id="@+id/progresslogin"
+        android:id="@+id/progressupdate"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="112dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnsignup"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

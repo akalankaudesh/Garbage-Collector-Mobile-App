@@ -1,7 +1,9 @@
 package nsbm.plymouth.myapplication;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +21,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -30,12 +36,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 public class HomePage extends AppCompatActivity
@@ -47,11 +59,18 @@ public class HomePage extends AppCompatActivity
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    // Create a storage reference from our app
+    StorageReference storageRef = storage.getReference();
+    StorageReference imagesRef = storageRef.child("users_photos");
+    FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 20;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -73,9 +92,15 @@ public class HomePage extends AppCompatActivity
 
 
 
+    String name;
+    String email;
+    Uri photoUrl;
+    String uid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -83,7 +108,6 @@ public class HomePage extends AppCompatActivity
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         setContentView(R.layout.activity_home_page);
-
 
 
         // Construct a GeoDataClient.
@@ -120,15 +144,51 @@ public class HomePage extends AppCompatActivity
         final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync( this);
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+             name = user.getDisplayName();
+             email = user.getEmail();
+             photoUrl = user.getPhotoUrl();
+
+
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+           uid = user.getUid();
+        }
+
+        View Hview=navigationView.getHeaderView(0);
+        TextView logeduser=(TextView)Hview.findViewById(R.id.loginuser);
+        TextView logeduseremail=(TextView)Hview.findViewById(R.id.useremail);
+        ImageView logeduserimg=(ImageView)Hview.findViewById(R.id.userimg);
+        logeduser.setText(name);
+        logeduseremail.setText(email);
+        Glide.with(getApplicationContext()).load(photoUrl).into(logeduserimg);
+
+        logeduserimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileupdate=new Intent(HomePage.this,Profile_update.class);
+                startActivity(profileupdate);
+            }
+        });
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(6.821113,80.040283);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in NSBM"));
+        LatLng NSBM = new LatLng(6.821113,80.040283);
+        mMap.addMarker(new MarkerOptions().position(NSBM).title("Bin Status-67%").icon(BitmapDescriptorFactory.fromResource(R.drawable.garbagebin_icon)));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -301,7 +361,10 @@ public class HomePage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+
+            FirebaseAuth.getInstance().signOut();
+            Intent logout=new Intent(HomePage.this,LoginActivity.class);
+            startActivity(logout);
         }
 
         return super.onOptionsItemSelected(item);

@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,12 +15,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Profile_update"></activity>
+        <activity android:name=".BinAdd" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDL74pj69RThOTgY9WouucufmmIa5rcZhM" />
 
-        <activity android:name=".MapsActivity"></activity>
+        <activity android:name=".MapsActivity" />
         <activity
             android:name=".HomePage"
             android:label="@string/title_activity_home_page"
